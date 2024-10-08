@@ -37,8 +37,8 @@ env:
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: Lean--p.info
   Firmware_Name: OpenWrt-CI-test
-  DIY_P1_SH: smpackage/test-1-p.sh
-  DIY_P2_SH: config/1.sh
+  DIY_P1_SH: config/1.sh
+  DIY_P2_SH: config/2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
