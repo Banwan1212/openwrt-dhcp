@@ -11,32 +11,6 @@ sed -i 's/OpenWrt/OpenWrt-DDD/g' package/base-files/files/bin/config_generate
 sed -i 's/Authorization Required/openwrt-23.05.2 wanuse.com/g' feeds/luci/themes/luci-theme-bootstrap/htdocs/luci-static/resources/view/bootstrap/sysauth.js
 sed -i 's/需要授权/openwrt-23.05 wanuse.com/g' feeds/luci/modules/luci-base/po/zh_Hans/base.po
 
-# 替换终端为bash
-# sed -i 's/\/bin\/ash/\/bin\/bash/' package/base-files/files/etc/passwd
-
-# ttyd 自动登录
-# sed -i "s?/bin/login?/usr/libexec/login.sh?g" ${GITHUB_WORKSPACE}/openwrt/package/feeds/packages/ttyd/files/ttyd.config
-
-# 删除默认密码
-# sed -i "/CYXluq4wUazHjmCDBCqXF/d" package/lean/default-settings/files/zzz-default-settings
-
-# 取消bootstrap为默认主题
-#sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
-
-# 修改 WiFi 名称
-# sed -i 's/OpenWrt/OpenWrt/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
-
-# 默认打开 WiFi
-# sed -i 's/disabled=1/disabled=0/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
-
-# Configure pppoe connection
-#uci set network.wan.proto=pppoe
-#uci set network.wan.username='yougotthisfromyour@isp.su'
-#uci set network.wan.password='yourpassword'
-
-# 移除重复软件包
-# rm -rf feeds/luci/themes/luci-theme-argon
-
 # 添加第三方应用
 
 mkdir kiddin9
