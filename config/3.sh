@@ -1,8 +1,5 @@
 #!/bin/bash
- 
-rm -f ./.config*
-rm -rf ./tmp && rm -rf .config
-touch ./.config
+
 cat >> .config <<EOF 
 CONFIG_VMDK_IMAGES=y
 CONFIG_VHDX_IMAGES=y
