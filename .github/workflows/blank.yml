@@ -93,7 +93,7 @@ jobs:
           git clone $REPO_URL -b $REPO_BRANCH openwrt
           ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
       
-      - name: patch1补丁和自定义设置插件源
+      - name: patch1补丁
         run: |
           [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
           chmod +x $DIY_P1_SH
@@ -104,7 +104,7 @@ jobs:
           cd openwrt
           ./scripts/feeds update -a         
 
-      - name: 安装源 #Install feeds # 更新go插件版本
+      - name: 安装源 Install feeds  更新go插件版本
         run: |
           cd openwrt          
           rm -rf feeds/packages/lang/golang
