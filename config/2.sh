@@ -39,41 +39,18 @@ sed -i "/CYXluq4wUazHjmCDBCqXF/d" package/lean/default-settings/files/zzz-defaul
 
 # 添加第三方应用
 
-mkdir wandduse
-pushd wandduse
-git clone --depth=1 https://github.com/wandduse/openwrt-packages .
-popd
-
 mkdir kiddin9
 pushd kiddin9
 git clone --depth=1 https://github.com/Banwan1212/kwrt-packages .
 popd
 
-mkdir ddd
-pushd ddd
-git clone --depth=1 https://github.com/Banwan1212/openwrt-packages .
-popd
-
-mkdir N-wrt
-pushd N-wrt
-git clone --depth=1 https://github.com/N-wrt/openwrt-ext .
-popd
-
-
 mkdir package/community
 pushd package/community
-
-# helloworld
-# mkdir helloworld
-# pushd helloworld
-# git clone --depth=1 https://github.com/Banwan1212/helloworld .
-# popd
 
 # passwall和ssr 合集helloworld
 mkdir passwall
 pushd passwall
 git clone --depth=1 https://github.com/Banwan1212/small .
-rm -rf v2ray-plugin
 popd
 #-------------------------
 # openclash
@@ -94,25 +71,15 @@ mkdir luci-app-adguardhome
 mkdir adguardhome
 cp -rf ../../kiddin9/luci-app-adguardhome/* luci-app-adguardhome
 cp -rf ../../kiddin9/adguardhome/* adguardhome
-# 广告屏蔽大师 Plus+
-mkdir luci-app-adbyby-plus
-mkdir adbyby
-cp -rf ../../kiddin9/luci-app-adbyby-plus/* luci-app-adbyby-plus
-cp -rf ../../kiddin9/adbyby/* adbyby
 
 # 文件助手
 mkdir filebrowser
 mkdir luci-app-filebrowser-go
-mkdir luci-app-filebrowser
 mkdir luci-app-fileassistant
-mkdir luci-app-filetransfer
-mkdir luci-lib-fs
+
 cp -rf ../../kiddin9/luci-app-filebrowser-go/* luci-app-filebrowser-go
 cp -rf ../../kiddin9/filebrowser/* filebrowser
-cp -rf ../../kiddin9/luci-app-filebrowser/* luci-app-filebrowser
 cp -rf ../../kiddin9/luci-app-fileassistant/* luci-app-fileassistant
-cp -rf ../../kiddin9/luci-app-filetransfer/* luci-app-filetransfer
-cp -rf ../../kiddin9/luci-lib-fs/* luci-lib-fs
 
 # VPN服务器
 mkdir luci-app-pptp-server
@@ -153,15 +120,7 @@ cp -rf ../../kiddin9/aria2/* aria2
 
 #定时任务
 mkdir luci-app-autotimeset
-cp -rf ../../ddd/luci-app-autotimeset/* luci-app-autotimeset
-
-#IP/MAC绑定
-mkdir luci-app-arpbind
-cp -rf ../../kiddin9/luci-app-arpbind/* luci-app-arpbind
-
-#家长控制 https://github.com/sirpdboy/
-mkdir luci-app-parentcontrol
-cp -rf ../../kiddin9/luci-app-parentcontrol/* luci-app-parentcontrol
+cp -rf ../../kiddin9/luci-app-autotimeset/* luci-app-autotimeset
 
 # 测速
 mkdir homebox
@@ -178,6 +137,5 @@ cp -rf ../../kiddin9/luci-app-zerotier/* luci-app-zerotier
 mkdir wrtbwmon
 mkdir luci-app-wrtbwmon
 cp -rf ../../kiddin9/wrtbwmon/* wrtbwmon
-cp -rf ../../ddd/luci-app-wrtbwmon/* luci-app-wrtbwmon
-
+cp -rf ../../kiddin9/luci-app-wrtbwmon/* luci-app-wrtbwmon
 popd
