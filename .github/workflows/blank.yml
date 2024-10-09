@@ -38,7 +38,7 @@ jobs:
 
   build:
 
-    name: Build openwrt_dhcp111
+    name: Build openwrt_dhcp
 
     runs-on: ubuntu-22.04
     
