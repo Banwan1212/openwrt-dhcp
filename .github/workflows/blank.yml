@@ -27,6 +27,7 @@ env:
   Firmware_Name: OpenWrt-dhcp-ddd
   DIY_P1_SH: config/1.sh
   DIY_P2_SH: config/2.sh
+  DIY_P2_SH: config/3.sh
   TZ: Asia/Shanghai 
 
 jobs:
