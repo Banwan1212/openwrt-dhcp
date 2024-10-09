@@ -70,9 +70,6 @@ CONFIG_PACKAGE_luci-app-ttyd=y
 # ssr
 CONFIG_PACKAGE_luci-app-ssr-plus=y
 
-# python ssr
-CONFIG_PACKAGE_luci-app-ssrserver-python=y
-
 # passwall
 CONFIG_PACKAGE_luci-app-passwall2=y
 CONFIG_PACKAGE_luci-app-passwall=y
@@ -86,10 +83,8 @@ CONFIG_PACKAGE_luci-app-frps=y
 #ssh连接
 CONFIG_PACKAGE_openssh-sftp-server=y
 # Turbo ACC 加速插件
-# CONFIG_PACKAGE_luci-app-turboacc=y
-# 广告屏蔽大师 Plus+
-CONFIG_PACKAGE_luci-app-adbyby-plus=y
-CONFIG_PACKAGE_adbyby=y
+CONFIG_PACKAGE_luci-app-turboacc=y
+# 广告屏蔽大师
 CONFIG_PACKAGE_luci-app-adguardhome=y
 CONFIG_PACKAGE_adguardhome=y
 # vpn
@@ -128,17 +123,11 @@ CONFIG_PACKAGE_luci-app-zerotier=y
 CONFIG_PACKAGE_ffmpeg=y
 #重启管理
 CONFIG_PACKAGE_luci-app-watchcat=y
-#端口开方
-CONFIG_PACKAGE_luci-app-natmap=y
-#IP/MAC绑定
-CONFIG_PACKAGE_luci-app-arpbind=y
+
 #定时任务
 CONFIG_PACKAGE_luci-app-autotimeset=y
 #关机
 CONFIG_PACKAGE_luci-app-poweroffdevice=y
-#实时流量
-CONFIG_PACKAGE_luci-app-wrtbwmon=y
-CONFIG_PACKAGE_wrtbwmon=y
 
 EOF
 #
