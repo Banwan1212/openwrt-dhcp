@@ -49,8 +49,8 @@ mkdir filebrowser
 mkdir luci-app-filebrowser-go
 mkdir luci-app-fileassistant
 
-cp -rf ../../kiddin9/luci-app-filebrowser-go/* luci-app-filebrowser-go
-cp -rf ../../kiddin9/filebrowser/* filebrowser
+cp -rf ../../ddd/luci-app-filebrowser-go/* luci-app-filebrowser-go
+cp -rf ../../ddd/filebrowser/* filebrowser
 cp -rf ../../kiddin9/luci-app-fileassistant/* luci-app-fileassistant
 
 # VPN服务器
