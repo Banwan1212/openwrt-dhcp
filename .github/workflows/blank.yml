@@ -27,22 +27,13 @@ env:
   Firmware_Name: OpenWrt-dhcp-ddd
   DIY_P1_SH: config/1.sh
   DIY_P2_SH: config/2.sh
-  UPLOAD_BIN_DIR: false
-  UPLOAD_FIRMWARE: true
-  UPLOAD_COWTRANSFER: false
-  UPLOAD_WETRANSFER: true
-  UPLOAD_RELEASE: false
   TZ: Asia/Shanghai 
 
 jobs:
-
   build:
-
     name: Build openwrt_dhcp
-
     runs-on: ubuntu-22.04
-    
-    steps:
+        steps:
       - name: 释放Ubuntu磁盘空间
         uses: jlumbroso/free-disk-space@main
         with:
