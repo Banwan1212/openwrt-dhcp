@@ -33,7 +33,7 @@ jobs:
   build:
     name: Build openwrt_dhcp
     runs-on: ubuntu-22.04
-        steps:
+    steps:
       - name: 释放Ubuntu磁盘空间
         uses: jlumbroso/free-disk-space@main
         with:
