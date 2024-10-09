@@ -95,7 +95,6 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }} 
 
-          
       - name: 下载源代码
         working-directory: /workdir
         run: |
@@ -103,13 +102,6 @@ jobs:
           git clone $REPO_URL -b $REPO_BRANCH openwrt
           ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
       
-      # - name: SSH connection to Actions
-        # uses: P3TERX/ssh2actions@v1.0.0
-        # if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-        # env:
-          # TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          # TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}    
-
       - name: patch1补丁和自定义设置插件源
         run: |
           [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
@@ -151,9 +143,7 @@ jobs:
           CONFIG_TARGET_IMAGES_GZIP=y
           CONFIG_TARGET_ROOTFS_TARGZ=y
           CONFIG_TARGET_ROOTFS_PARTSIZE=1024
-          
-                    
-         
+
           # CONFIG_PACKAGE_dnsmasq is not set
           CONFIG_LUCI_LANG_zh_Hans=y
           CONFIG_PACKAGE_luci-mod-admin-full=y
@@ -299,14 +289,7 @@ jobs:
           cd openwrt
           make download -j16
           find dl -size -1024c -exec ls -l {} \;
-          find dl -size -1024c -exec rm -f {} \;
-  
-      # - name: SSH connection to Actions
-      #   uses: P3TERX/ssh2actions@v1.0.0
-      #   if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-      #   env:
-      #     TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-      #     TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}   
+          find dl -size -1024c -exec rm -f {} \;  
 
       - name: 开始编译固件
         run: |
@@ -323,13 +306,7 @@ jobs:
           echo "status=success" >> $GITHUB_OUTPUT
           grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
           [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
-          echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
-      # - name: SSH connection to Actions
-      #   uses: P3TERX/ssh2actions@v1.0.0
-      #   if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-      #   env:
-      #     TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-      #     TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}   
+          echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV 
 
       - name: Prepare artifact
         run: |
@@ -343,21 +320,7 @@ jobs:
           cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
           cp -rf ./.config ./artifact/buildinfo/
           cp -rf ./feeds.conf.default ./artifact/buildinfo/
-      # - name: 整理固件文件
-      #   id: organize
-      #   run: |
-      #     cd openwrt/bin/targets/*/*
-      #     rm -rf packages
-      #     echo "FIRMWARE=$PWD" >> $GITHUB_ENV
-      #     echo "status=success" >> $GITHUB_OUTPUT
-    
-      # - name: 上传固件目录
-      #   uses: actions/upload-artifact@main
-      #   with:
-      #     name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-      #     path: ${{ env.FIRMWARE }}
 
-          
       - name: Deliver buildinfo
         uses: actions/upload-artifact@main
         with:
