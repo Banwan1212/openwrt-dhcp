@@ -12,7 +12,10 @@ mkdir kiddin9
 pushd kiddin9
 git clone --depth=1 https://github.com/Banwan1212/kwrt-packages .
 popd
-
+mkdir ddd
+pushd ddd
+git clone --depth=1 https://github.com/Banwan1212/openwrt-dhcp/tree/main/packages .
+popd
 mkdir package/community
 pushd package/community
 
