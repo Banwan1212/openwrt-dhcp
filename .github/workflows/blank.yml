@@ -1,13 +1,5 @@
-# 
-# <https://github.com/KFERMercer/OpenWrt-CI>
-#
-# Copyright (C) 2019 P3TERX
-#
-# Copyright (C) 2020 KFERMercer
-#
 
 name: openwrt_dhcp_ddd
-
 on:
   #schedule:
     #- cron: 0 20 * * *
@@ -24,11 +16,8 @@ on:
   watch:
     types: [started]
     
-
 permissions:
   contents: read
-
-
     
 env:
   REPO_URL: https://github.com/openwrt/openwrt
@@ -49,7 +38,6 @@ env:
 jobs:
 
   build:
-
 
     name: Build openwrt_dhcp111
 
