@@ -29,10 +29,6 @@ popd
 mkdir luci-app-openclash
 cp -rf ../../kiddin9/luci-app-openclash/* luci-app-openclash
 
-# python ssr
-mkdir luci-app-ssrserver-python
-cp -rf ../../kiddin9/luci-app-ssrserver-python/* luci-app-ssrserver-python
-
 #Diskman
 mkdir luci-app-diskman
 cp -rf ../../kiddin9/luci-app-diskman/* luci-app-diskman
@@ -103,13 +99,12 @@ cp -rf ../../kiddin9/luci-app-netspeedtest/* luci-app-netspeedtest
 #docker
 mkdir luci-app-docker
 cp -rf ../../kiddin9/luci-app-docker/* luci-app-docker
+
 mkdir luci-app-zerotier
 cp -rf ../../kiddin9/luci-app-zerotier/* luci-app-zerotier
-#实时流量监控
-mkdir wrtbwmon
-mkdir luci-app-wrtbwmon
-cp -rf ../../kiddin9/wrtbwmon/* wrtbwmon
-cp -rf ../../kiddin9/luci-app-wrtbwmon/* luci-app-wrtbwmon
+
 popd
+#回到openwrt目录
+#------------------------------------------------------
 # turboacc堵塞优化和依赖
 curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh
