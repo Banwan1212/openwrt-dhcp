@@ -73,8 +73,8 @@ cp -rf ../../kiddin9/luci-app-upnp/* luci-app-upnp
 # 监控CPU性能
 mkdir netdata
 mkdir luci-app-netdata
-cp -rf ../../wandduse/luci-app-netdata/* luci-app-netdata
-cp -rf ../../wandduse/netdata/* netdata
+cp -rf ../../kiddin9/luci-app-netdata/* luci-app-netdata
+cp -rf ../../kiddin9/netdata/* netdata
 # git clone https://github.com/sirpdboy/luci-app-netdata luci-app-netdata
 
 # 网络共享（Samba4）
