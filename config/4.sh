@@ -5,6 +5,13 @@ sed -i 's/OpenWrt/OpenWrt-DDD/g' package/base-files/files/bin/config_generate
 # sed -i 's/Authorization Required/wanuse.com/g' feeds/luci/modules/luci-base/ucode/template/sysauth.ut
 sed -i 's/Authorization Required/openwrt-23.05.2 wanuse.com/g' feeds/luci/themes/luci-theme-bootstrap/htdocs/luci-static/resources/view/bootstrap/sysauth.js
 sed -i 's/需要授权/openwrt-23.05 wanuse.com/g' feeds/luci/modules/luci-base/po/zh_Hans/base.po
+# 防火墙 开放 web管理
+sed -i 's/option rfc1918_filter 1/option rfc1918_filter 0/g' package/network/services/uhttpd/files/uhttpd.config
+sed -i 's/80/8011/g' package/network/services/uhttpd/files/uhttpd.config
+sed -i 's/443/8443/g' package/network/services/uhttpd/files/uhttpd.config
+sed -i 's/22/2211/g' package/network/services/dropbear/files/dropbear.config
+
+
 
 # 添加第三方应用
 
