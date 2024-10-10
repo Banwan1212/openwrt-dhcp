@@ -36,16 +36,8 @@ CONFIG_PACKAGE_qrencode=y
 CONFIG_PACKAGE_libqrencode=y
 CONFIG_PACKAGE_block-mount=y
 CONFIG_PACKAGE_cloudflared=y
-
-CONFIG_PACKAGE_docker=y
-CONFIG_PACKAGE_dockerd=y
-CONFIG_PACKAGE_luci-app-docker=y
-CONFIG_PACKAGE_luci-lib-docker=y
-CONFIG_PACKAGE_luci-app-dockerman=y
 CONFIG_PACKAGE_luci-lib-jsonc=y
-CONFIG_PACKAGE_docker-compose=y
 CONFIG_DOCKER_CGROUP_OPTIONS=y
-CONFIG_PACKAGE_docker-compose=y
 CONFIG_PACKAGE_containerd=y
 CONFIG_PACKAGE_runc=y
 CONFIG_DOCKER_NET_MACVLAN=y
