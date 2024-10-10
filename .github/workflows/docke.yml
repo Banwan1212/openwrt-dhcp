@@ -24,7 +24,7 @@ env:
   # 分支版本master例如：openwrt-19.07
   REPO_BRANCH: openwrt-23.05
   FEEDS_CONF: feeds.conf.default
-  Firmware_Name: OpenWrt-dhcp-ddd
+  Firmware_Name: OpenWrt-docke-ddd
   DIY_P1_SH: config/1.sh
   DIY_P2_SH: config/4.sh
   DIY_P3_SH: config/5.sh
