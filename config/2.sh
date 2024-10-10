@@ -86,10 +86,6 @@ mkdir aria2
 cp -rf ../../kiddin9/luci-app-aria2/* luci-app-aria2
 cp -rf ../../kiddin9/aria2/* aria2
 
-#定时任务
-mkdir luci-app-autotimeset
-cp -rf ../../kiddin9/luci-app-autotimeset/* luci-app-autotimeset
-
 # 测速
 mkdir homebox
 mkdir luci-app-netspeedtest
