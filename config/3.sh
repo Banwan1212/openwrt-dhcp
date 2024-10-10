@@ -123,9 +123,8 @@ CONFIG_PACKAGE_luci-app-zerotier=y
 CONFIG_PACKAGE_ffmpeg=y
 #重启管理
 CONFIG_PACKAGE_luci-app-watchcat=y
-
 #定时任务
-CONFIG_PACKAGE_luci-app-autotimeset=y
+# CONFIG_PACKAGE_luci-app-autotimeset=y
 #关机
 CONFIG_PACKAGE_luci-app-poweroffdevice=y
 
