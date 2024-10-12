@@ -29,8 +29,8 @@ popd
 mkdir luci-app-openclash
 cp -rf ../../kiddin9/luci-app-openclash/* luci-app-openclash
 #加入OpenClash核心
-chmod -R a+x $GITHUB_WORKSPACE/config/preset-clash-core.sh
-$GITHUB_WORKSPACE/config/preset-clash-core.sh amd64
+#chmod -R a+x $GITHUB_WORKSPACE/config/preset-clash-core.sh
+#$GITHUB_WORKSPACE/config/preset-clash-core.sh amd64
 
 #Diskman
 mkdir luci-app-diskman
