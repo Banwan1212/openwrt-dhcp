@@ -75,7 +75,7 @@ cp -rf ../../kiddin9/luci-app-upnp/* luci-app-upnp
 # 监控CPU性能
 mkdir netdata
 mkdir luci-app-netdata
-cp -rf ../../ddd/luci-app-netdata/* luci-app-netdata
+cp -rf ../../kiddin9/luci-app-netdata/* luci-app-netdata
 cp -rf ../../ddd/netdata/* netdata
 # git clone https://github.com/sirpdboy/luci-app-netdata luci-app-netdata
 
