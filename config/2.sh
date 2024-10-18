@@ -48,11 +48,12 @@ mkdir filebrowser
 mkdir luci-app-filebrowser-go
 mkdir luci-app-fileassistant
 mkdir luci-app-filetransfer
+mkdir luci-lib-fs
 cp -rf ../../kiddin9/luci-app-filetransfer/* luci-app-filetransfer
 cp -rf ../../ddd/luci-app-filebrowser-go/* luci-app-filebrowser-go
 cp -rf ../../ddd/filebrowser/* filebrowser
 cp -rf ../../kiddin9/luci-app-fileassistant/* luci-app-fileassistant
-
+cp -rf ../../kiddin9/luci-lib-fs/* luci-lib-fs
 # VPN服务器
 mkdir luci-app-pptp-server
 mkdir luci-app-openvpn-server
