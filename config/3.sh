@@ -57,6 +57,7 @@ CONFIG_PACKAGE_tini=y
 CONFIG_PACKAGE_luci-app-fileassistant=y
 CONFIG_PACKAGE_filebrowser=y
 CONFIG_PACKAGE_luci-app-filebrowser-go=y
+CONFIG_PACKAGE_luci-app-filetransfer=y
 # UPNP
 CONFIG_PACKAGE_luci-app-upnp=y
 # 网络带宽监视器
