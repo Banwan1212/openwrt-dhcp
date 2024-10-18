@@ -47,7 +47,8 @@ cp -rf ../../kiddin9/adguardhome/* adguardhome
 mkdir filebrowser
 mkdir luci-app-filebrowser-go
 mkdir luci-app-fileassistant
-
+mkdir luci-app-filetransfer
+cp -rf ../../kiddin9/luci-app-filetransfer/* luci-app-filetransfer
 cp -rf ../../ddd/luci-app-filebrowser-go/* luci-app-filebrowser-go
 cp -rf ../../ddd/filebrowser/* filebrowser
 cp -rf ../../kiddin9/luci-app-fileassistant/* luci-app-fileassistant
