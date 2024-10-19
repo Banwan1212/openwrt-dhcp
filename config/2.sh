@@ -12,10 +12,17 @@ mkdir kiddin9
 pushd kiddin9
 git clone --depth=1 https://github.com/Banwan1212/kwrt-packages .
 popd
+
 mkdir ddd
 pushd ddd
 git clone --depth=1 https://github.com/Banwan1212/packages .
 popd
+
+mkdir Lienol
+pushd Lienol
+git clone --depth=1 https://github.com/Lienol/openwrt-package .
+popd
+
 mkdir package/community
 pushd package/community
 
@@ -52,7 +59,7 @@ mkdir luci-lib-fs
 cp -rf ../../kiddin9/luci-app-filetransfer/* luci-app-filetransfer
 cp -rf ../../ddd/luci-app-filebrowser-go/* luci-app-filebrowser-go
 cp -rf ../../ddd/filebrowser/* filebrowser
-cp -rf ../../kiddin9/luci-app-fileassistant/* luci-app-fileassistant
+cp -rf ../../Lienol/luci-app-fileassistant/* luci-app-fileassistant
 cp -rf ../../kiddin9/luci-lib-fs/* luci-lib-fs
 # VPN服务器
 mkdir luci-app-pptp-server
