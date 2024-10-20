@@ -72,7 +72,8 @@ cp -rf ../../ddd/luci-app-filebrowser-go/* luci-app-filebrowser-go
 cp -rf ../../ddd/filebrowser/* filebrowser
 cp -rf ../../kiddin9/luci-app-fileassistant/* luci-app-fileassistant
 cp -rf ../../kiddin9/luci-lib-fs/* luci-lib-fs
-cp -rf ../../kiddin9/luci-app-tinyfilemanager/* luci-app-tinyfilemanager
+# cp -rf ../../kiddin9/luci-app-tinyfilemanager/* luci-app-tinyfilemanager
+git clone https://github.com/muink/luci-app-tinyfilemanager luci-app-tinyfilemanager
 # VPN服务器
 mkdir luci-app-pptp-server
 mkdir luci-app-openvpn-server
