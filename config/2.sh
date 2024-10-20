@@ -45,10 +45,18 @@ cp -rf ../../kiddin9/luci-app-diskman/* luci-app-diskman
 
 # 去广告
 #ADGuardHome（kiddin9）
+mkdir luci-app-argon-config
+mkdir luci-theme-argon
+cp -rf ../../kiddin9/luci-app-argon-config/* luci-app-argon-config
+cp -rf ../../kiddin9/luci-theme-argon/* luci-theme-argon
+
+# 主题
+#ADGuardHome（kiddin9）
 mkdir luci-app-adguardhome
 mkdir adguardhome
 cp -rf ../../kiddin9/luci-app-adguardhome/* luci-app-adguardhome
 cp -rf ../../kiddin9/adguardhome/* adguardhome
+
 
 # 文件助手
 mkdir filebrowser
