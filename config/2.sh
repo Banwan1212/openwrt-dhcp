@@ -61,19 +61,21 @@ cp -rf ../../kiddin9/adguardhome/* adguardhome
 # 文件助手
 mkdir filebrowser
 mkdir luci-app-filebrowser-go
-# mkdir luci-app-filebrowser
-mkdir luci-app-fileassistant
-mkdir luci-app-filetransfer
 mkdir luci-lib-fs
 mkdir luci-app-tinyfilemanager
-cp -rf ../../kiddin9/luci-app-filetransfer/* luci-app-filetransfer
-cp -rf ../../ddd/luci-app-filebrowser-go/* luci-app-filebrowser-go
-# cp -rf ../../kiddin9/luci-app-filebrowser/* luci-app-filebrowser
+# mkdir luci-app-filebrowser
+# mkdir luci-app-fileassistant
+# mkdir luci-app-filetransfer
 cp -rf ../../ddd/filebrowser/* filebrowser
-cp -rf ../../kiddin9/luci-app-fileassistant/* luci-app-fileassistant
+cp -rf ../../ddd/luci-app-filebrowser-go/* luci-app-filebrowser-go
 cp -rf ../../kiddin9/luci-lib-fs/* luci-lib-fs
-# cp -rf ../../kiddin9/luci-app-tinyfilemanager/* luci-app-tinyfilemanager
 git clone https://github.com/muink/luci-app-tinyfilemanager luci-app-tinyfilemanager
+
+# cp -rf ../../kiddin9/luci-app-filetransfer/* luci-app-filetransfer
+# cp -rf ../../kiddin9/luci-app-filebrowser/* luci-app-filebrowser
+# cp -rf ../../kiddin9/luci-app-fileassistant/* luci-app-fileassistant
+# cp -rf ../../kiddin9/luci-app-tinyfilemanager/* luci-app-tinyfilemanager
+
 # VPN服务器
 mkdir luci-app-pptp-server
 mkdir luci-app-openvpn-server
