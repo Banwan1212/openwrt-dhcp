@@ -61,10 +61,8 @@ CONFIG_PACKAGE_luci-theme-bootstrap=y
 # CONFIG_PACKAGE_luci-theme-netgear is not set
 CONFIG_PACKAGE_luci-app-argon-config=y
 # 文件助手
-CONFIG_PACKAGE_luci-app-fileassistant=y
 CONFIG_PACKAGE_filebrowser=y
 CONFIG_PACKAGE_luci-app-filebrowser-go=y
-CONFIG_PACKAGE_luci-app-filetransfer=y
 CONFIG_PACKAGE_luci-app-tinyfilemanager=y
 # UPNP
 CONFIG_PACKAGE_luci-app-upnp=y
