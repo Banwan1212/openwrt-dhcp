@@ -173,8 +173,10 @@ CONFIG_PACKAGE_luci-i18n-netspeedtest-zh-cn=y
 #
 CONFIG_PACKAGE_luci-app-zerotier=y
 #视频解码
+CONFIG_PACKAGE_libopus=y
+CONFIG_PACKAGE_libx264=y
 CONFIG_PACKAGE_ffmpeg=y
-CONFIG_PACKAGE_libffmpeg-full=y
+CONFIG_PACKAGE_ffprobe=y
 #重启管理
 CONFIG_PACKAGE_luci-app-watchcat=y
 #定时任务
