@@ -180,7 +180,7 @@ CONFIG_PACKAGE_ffmpeg-mpp=y
 CONFIG_PACKAGE_libffmpeg-mpp=y
 CONFIG_PACKAGE_libffmpeg-audio-dec=y
 CONFIG_PACKAGE_libffmpeg-custom=y
-CONFIG_PACKAGE_libffmpeg-full=y
+
 CONFIG_PACKAGE_libffmpeg-mini=y
 #重启管理
 CONFIG_PACKAGE_luci-app-watchcat=y
