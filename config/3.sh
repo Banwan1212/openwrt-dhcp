@@ -186,6 +186,7 @@ CONFIG_PACKAGE_luci-app-watchcat=y
 CONFIG_PACKAGE_luci-app-poweroffdevice=y
 CONFIG_PACKAGE_srs-server=y
 #DDNS域名动态解析
+CONFIG_PACKAGE_ddns-go=y
 CONFIG_PACKAGE_luci-app-ddns-go=y
 
 EOF
