@@ -127,8 +127,9 @@ mkdir luci-app-zerotier
 cp -rf ../../kiddin9/luci-app-zerotier/* luci-app-zerotier
 
 mkdir ddns-go
+mkdir luci-app-ddns-go
 cp -rf ../../kiddin9/ddns-go/* ddns-go
-
+cp -rf ../../kiddin9/luci-app-ddns-go/* luci-app-ddns-go
 
 popd
 #回到openwrt目录
