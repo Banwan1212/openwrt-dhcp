@@ -3,22 +3,12 @@ name: openwrt_dhcp_ddd
 on:
   schedule:
     - cron: '0 6 * * *'
-  release:
-    types: [published]
-    
-  repository_dispatch:
   workflow_dispatch:
     inputs:
       ssh:
         description: 'SSH connection to Actions false true'
         required: false
         default: 'false'
-  watch:
-    types: [started]
-    
-permissions:
-  contents: read
-    
 env:
   REPO_URL: https://github.com/openwrt/openwrt
   # 分支版本master例如：openwrt-19.07
@@ -28,8 +18,7 @@ env:
   DIY_P1_SH: config/1.sh
   DIY_P2_SH: config/2.sh
   DIY_P3_SH: config/3.sh
-  TZ: Asia/Shanghai 
-
+  TZ: Asia/Shanghai
 jobs:
   build:
     name: Build openwrt_dhcp
