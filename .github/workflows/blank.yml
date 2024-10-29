@@ -199,11 +199,9 @@ jobs:
           curl -fsSL git.io/file-transfer | sh
           ./transfer wss --block 2621440 -s -p 64 --no-progress openwrt/artifact/firmware/ 2>&1 | tee cowtransfer.log
           echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-  - name: Delete old workflow runs
-    uses: Mattraks/delete-workflow-runs@v2
-    with:
-      token: ${{ secrets.GITHUB_TOKEN }}
-      
-      retain_days: 7
-      keep_minimum_runs: 5
-      
+      - name: Delete old workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          retain_days: 7
+          keep_minimum_runs: 5
