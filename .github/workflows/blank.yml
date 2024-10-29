@@ -1,8 +1,8 @@
 
 name: openwrt_dhcp_ddd
 on:
-  #schedule:
-    #- cron: 0 20 * * *
+  schedule:
+    - cron: '0 3 * * *'
   release:
     types: [published]
     
