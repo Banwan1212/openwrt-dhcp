@@ -179,5 +179,5 @@ jobs:
           delete_workflow_pattern: "blank.yml"
       - name: 编译成功信息通知-Telegram
         # if: steps.compile.outcome == 'success' && env.TELEGRAM_BOT == 'true'
-        run: |
-          curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=您的固件成功编译完成了！
+        run: |          
+          curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=您的固件成功编译完成了"
