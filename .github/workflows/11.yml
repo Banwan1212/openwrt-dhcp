@@ -21,7 +21,7 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          get "https://github.com/MrBoomDeveloper/Awery/raw/8deadd4ccd331dd5adcc722caf7df1c350e058a2/.github/workflows/publish_alpha.yml"
+          get https://github.com/MrBoomDeveloper/Awery/raw/8deadd4ccd331dd5adcc722caf7df1c350e058a2/.github/workflows/publish_alpha.yml
           # curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=送快递"
           #curl -sS -f -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendDocument" -F "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}" -F "document=https://github.com/MrBoomDeveloper/Awery/raw/8deadd4ccd331dd5adcc722caf7df1c350e058a2/.github/workflows/publish_alpha.yml"
           curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendDocument?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&document=publish_alpha.yml"
