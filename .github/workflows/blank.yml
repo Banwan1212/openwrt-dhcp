@@ -168,6 +168,7 @@ jobs:
         run: |
           curl -fsSL git.io/file-transfer | sh
           ./transfer wss --block 2621440 -s -p 64 --no-progress openwrt/artifact/firmware/ 2>&1 | tee cowtransfer.log
+          curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=$(cat cowtransfer.log | grep https)"
           echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
       - name: 删除运行记录
         uses: Mattraks/delete-workflow-runs@v2
@@ -177,7 +178,3 @@ jobs:
           retain_days: 0
           keep_minimum_runs: 1
           delete_workflow_pattern: "blank.yml"
-      - name: 编译成功信息通知-Telegram
-        # if: steps.compile.outcome == 'success' && env.TELEGRAM_BOT == 'true'
-        run: |          
-          curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=您的固件成功编译完成了"
