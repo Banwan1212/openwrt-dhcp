@@ -19,6 +19,12 @@ env:
   DIY_P2_SH: config/2.sh
   DIY_P3_SH: config/3.sh
   TZ: Asia/Shanghai
+permissions:
+  statuses: write
+  checks: write
+  contents: write
+  pull-requests: write
+  actions: write
 jobs:
   build:
     name: Build openwrt_dhcp
