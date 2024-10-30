@@ -21,7 +21,7 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          get https://example.com/file.txt
+          #get https://example.com/file.txt
           # curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=送快递"
           curl -sS -f -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendDocument" -F "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}" -F "document=https://example.com/file.txt"
           #curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendDocument?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&document=publish_alpha.yml"
