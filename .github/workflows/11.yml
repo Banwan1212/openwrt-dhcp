@@ -21,5 +21,4 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          
-          curl "https://api.telegram.org/bot6026352946:AAE9U1pdikRmpOSsVejRjx41ddBf9W__1OY/sendMessage?chat_id=1382259195&text=test123"
+          curl "https://api.telegram.org/bot6026352946:AAE9U1pdikRmpOSsVejRjx41ddBf9W__1OY/sendMessage?chat_id=1382259195&text=${{ secrets.TELEGRAM_BOT_TOKEN }}"
