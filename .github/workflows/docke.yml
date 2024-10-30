@@ -29,6 +29,8 @@ env:
   DIY_P2_SH: config/4.sh
   DIY_P3_SH: config/5.sh
   TZ: Asia/Shanghai 
+  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
 jobs:
   build:
