@@ -167,9 +167,9 @@ jobs:
       - name: Upload firmware to cowtransfer     
         run: |
           curl -fsSL git.io/file-transfer | sh
-          ./transfer wss --block 2621440 -s -p 64 --no-progress openwrt/artifact/firmware/ 2>&1 | tee cowtransfer.log
-          curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=$(cat cowtransfer.log | grep https)"
+          ./transfer wss --block 2621440 -s -p 64 --no-progress openwrt/artifact/firmware/ 2>&1 | tee cowtransfer.log          
           echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
+          curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=$(cat cowtransfer.log | grep https)"
       - name: 删除运行记录
         uses: Mattraks/delete-workflow-runs@v2
         with:
