@@ -5,7 +5,12 @@ sed -i 's/OpenWrt/OpenWrt-DDD/g' package/base-files/files/bin/config_generate
 # sed -i 's/Authorization Required/wanuse.com/g' feeds/luci/modules/luci-base/ucode/template/sysauth.ut
 sed -i 's/Authorization Required/openwrt-23.05 wanuse.com/g' feeds/luci/themes/luci-theme-bootstrap/htdocs/luci-static/resources/view/bootstrap/sysauth.js
 sed -i 's/需要授权/openwrt-23.05 wanuse.com/g' feeds/luci/modules/luci-base/po/zh_Hans/base.po
-
+# 交换LAN/WAN口
+sed -i 's/"eth1 eth2" "eth0"/"eth1 eth2" "eth0"/g' target/linux/x86/base-files/etc/board.d/02_network
+sed -i "s/'eth1 eth2' 'eth0'/'eth1 eth2' 'eth0'/g" target/linux/x86/base-files/etc/board.d/02_network
+sed -i "s/lan 'eth0'/lan 'eth0'/g" package/base-files/files/etc/board.d/99-default_network
+sed -i "s/wan 'eth1'/wan 'eth1'/g" package/base-files/files/etc/board.d/99-default_network
+sed -i "s/net\/eth1/net\/eth1/g" package/base-files/files/etc/board.d/99-default_network
 # 添加第三方应用
 
 mkdir kiddin9
