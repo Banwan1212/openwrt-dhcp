@@ -169,8 +169,8 @@ jobs:
           curl -fsSL git.io/file-transfer | sh
           ./transfer wss --block 2621440 -s -p 64 --no-progress openwrt/artifact/firmware/ 2>&1 | tee cowtransfer.log          
           echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-          gl=openwrt23.05-X86-DHCP-LAN编译完成下载地址: $(cat cowtransfer.log | grep Manage | awk '{print $3}')
-          wen=openwrt23.05-X86-DHCP-LAN编译完成下载地址: $(cat cowtransfer.log | grep Download | awk '{print $3}')
+          gl=OpenWrt23.05-X86-DHCP-LAN编译完成下载地址: $(cat cowtransfer.log | grep Manage | awk '{print $3}')
+          wen=OpenWrt23.05-X86-DHCP-LAN编译完成下载地址: $(cat cowtransfer.log | grep Download | awk '{print $3}')
           curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=$wen"
           curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=$gl"
       - name: 删除运行记录
