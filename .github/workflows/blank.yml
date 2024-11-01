@@ -169,8 +169,8 @@ jobs:
           curl -fsSL git.io/file-transfer | sh
           ./transfer wss --block 2621440 -s -p 64 --no-progress openwrt/artifact/firmware/ 2>&1 | tee cowtransfer.log          
           echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-          wenshushu_lines==$(cat cowtransfer.log | grep https://www | awk '{print $3}')
-          curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=openwrt23.05下载地址$wenshushu_lines"
+          wenshushu_lines=openwrt23.05-X86-DHCP-LAN编译完成下载地址$(cat cowtransfer.log | grep https://www | awk '{print $3}')
+          curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=$wenshushu_lines"
       - name: 删除运行记录
         uses: Mattraks/delete-workflow-runs@v2
         with:
