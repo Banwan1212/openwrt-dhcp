@@ -173,6 +173,7 @@ jobs:
           wen=OpenWrt23.05-X86-DHCP-LAN编译完成下载地址$(cat cowtransfer.log | grep Download | awk '{print $3}')
           curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=$wen"
           # 全部openwrt-x86文件
+          rm -rf cowtransfer.log
           ./transfer wss --block 2621440 -s -p 64 --no-progress openwrt/artifact/firmware/ 2>&1 | tee cowtransfer.log          
           echo "::warning file=cowtransfera.com::$(cat cowtransfer.log | grep https)"          
           g_l=OpenWrt23.05-X86-DHCP-LAN编译完成下载地址$(cat cowtransfer.log | grep Manage | awk '{print $3}')          
