@@ -167,14 +167,17 @@ jobs:
       - name: Upload firmware to cowtransfer     
         run: |
           curl -fsSL git.io/file-transfer | sh
+          
           ./transfer wss --block 2621440 -s -p 64 --no-progress openwrt/artifact/firmware/openwrt-x86-64-generic-squashfs-combined.img.gz 2>&1 | tee cowtransfer.log
-          ./transfer wss --block 2621440 -s -p 64 --no-progress openwrt/artifact/firmware/ 2>&1 | tee cowtransfera.log
-          echo "::warning file=cowtransfera.com::$(cat cowtransfera.log | grep https)"
           echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-          gl=OpenWrt23.05-X86-DHCP-LAN编译完成下载地址: $(cat cowtransfera.log | grep Manage | awk '{print $3}')
-          wen=OpenWrt23.05-X86-DHCP-LAN编译完成下载地址: $(cat cowtransfer.log | grep Download | awk '{print $3}')
+          wen=OpenWrt23.05-X86-DHCP-LAN编译完成下载地址$(cat cowtransfer.log | grep Download | awk '{print $3}')
           curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=$wen"
-          curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=$gl"
+          
+          ./transfer wss --block 2621440 -s -p 64 --no-progress openwrt/artifact/firmware/ 2>&1 | tee cowtransfer.log          
+          echo "::warning file=cowtransfera.com::$(cat cowtransfer.log | grep https)"          
+          g_l=OpenWrt23.05-X86-DHCP-LAN编译完成下载地址$(cat cowtransfer.log | grep Manage | awk '{print $3}')          
+          curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=$g_l"
+          
       - name: 删除运行记录
         uses: Mattraks/delete-workflow-runs@v2
         with:
