@@ -1,27 +1,24 @@
-name: 11
+name: Copy Private Repo
+
 on:
-  repository_dispatch:
-  workflow_dispatch:
-    inputs:
-      ssh:
-        description: 'SSH connection to Actions'
-        required: false
-        default: 'true/false'
+   workflow_dispatch:
 jobs:
-
-  build_openwrt:
-
-    name: 111
-
+  copy-repo:
     runs-on: ubuntu-latest
-    
-    steps:
 
-      - name: Space cleanup
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-          #get https://example.com/file.txt
-          # curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=送快递"
-          #curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendDocument" -F "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}" -F "document=https://example.com/file.txt"
-          curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendDocument?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&document=https://example.com/file.txt"
+    steps:
+    - name: Checkout this repository
+      uses: actions/checkout@v2
+
+    - name: Checkout private repository
+      uses: actions/checkout@v2
+      with:
+        repository: Banwan1212/packages
+        token: ${{ secrets.GH_TOKEN }}
+        path: private-packages
+
+    - name: Copy files
+      run: |
+        cp -r private-packages/* .
+        curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=送快递"
+          
