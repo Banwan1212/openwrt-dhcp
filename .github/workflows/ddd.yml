@@ -113,7 +113,7 @@ jobs:
       - name: patch2补丁
         run: |
           chmod +x ./ddd/config/2.sh
-          # cd openwrt
+          cd openwrt
           ddd/config/2.sh
 
       - name: SSH connection to Actions
