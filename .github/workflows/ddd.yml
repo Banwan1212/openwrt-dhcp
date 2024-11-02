@@ -75,12 +75,7 @@ jobs:
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
 
-      - name: Checkout private repository
-        uses: actions/checkout@v2
-        with:
-          repository: Banwan1212/packages
-          token: ${{ secrets.GH_TOKEN }}
-          path: ddd
+
           
       - name: 下载源代码
         working-directory: /workdir
@@ -88,6 +83,13 @@ jobs:
           df -hT $PWD
           git clone $REPO_URL -b $REPO_BRANCH openwrt
           ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+
+      - name: Checkout private repository
+        uses: actions/checkout@v2
+        with:
+          repository: Banwan1212/packages
+          token: ${{ secrets.GH_TOKEN }}
+          path: openwrt/ddd
       
       - name: patch1补丁
         run: |
