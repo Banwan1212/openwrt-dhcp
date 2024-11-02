@@ -118,8 +118,8 @@ jobs:
       - name: patch2补丁
         run: |
           chmod +x ./ddd/config/2.sh
-          cd openwrt
-          ../ddd/config/2.sh
+          # cd openwrt
+          ddd/config/2.sh
       - name: 自定义设置.config
         run: |
           chmod +x $DIY_P3_SH
