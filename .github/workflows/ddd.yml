@@ -10,14 +10,9 @@ on:
         required: false
         default: 'false'
 env:
-  REPO_URL: https://github.com/openwrt/openwrt
-  # 分支版本master例如：openwrt-19.07
-  REPO_BRANCH: openwrt-23.05
-  FEEDS_CONF: feeds.conf.default
+  REPO_URL: https://github.com/openwrt/openwrt  
+  REPO_BRANCH: openwrt-23.05 
   Firmware_Name: OpenWrt-dhcp-ddd
-  DIY_P1_SH: config/1.sh
-  DIY_P2_SH: config/2.sh
-  DIY_P3_SH: config/3.sh
   TZ: Asia/Shanghai
 permissions:
   statuses: write
@@ -58,8 +53,6 @@ jobs:
           echo -e "$(sudo lshw -short -C memory | grep GiB)\n"
           echo "--------------------------硬盘信息--------------------------"
           echo "硬盘数量: $(ls /dev/sd* | grep -v [1-9] | wc -l)" && df -hT
-      - name: 准备完成
-        uses: actions/checkout@v4
 
       - name: 初始化系统环境
         env:
@@ -74,8 +67,6 @@ jobs:
           sudo timedatectl set-timezone "$TZ"
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
-
-
           
       - name: 下载源代码
         working-directory: /workdir
@@ -91,12 +82,11 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           path: openwrt/ddd
       
-      - name: patch1补丁
+      - name: 自定义配置1
         run: |
-          [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
-          chmod +x $DIY_P1_SH
           cd openwrt
-          $GITHUB_WORKSPACE/$DIY_P1_SH
+          chmod +x ddd/config/1.sh
+          ddd/config/1.sh
       - name: 更新源 #Update feeds
         run: |
           cd openwrt
@@ -112,9 +102,7 @@ jobs:
 
       - name: patch2补丁
         run: |
-          
           cd openwrt
-          
           chmod +x ddd/config/2.sh
           ddd/config/2.sh
       - name: SSH connection to Actions
