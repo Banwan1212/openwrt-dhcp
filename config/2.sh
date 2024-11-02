@@ -15,7 +15,8 @@ popd
 
 mkdir ddd
 pushd ddd
-git clone --depth=1 https://github.com/Banwan1212/packages .
+# git clone --depth=1 https://github.com/Banwan1212/packages .
+cp -r ddd/* .
 popd
 
 mkdir Lienol
