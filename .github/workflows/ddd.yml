@@ -166,6 +166,7 @@ jobs:
         run: |
           chmod +x openwrt/ddd/config/telegram.sh
           $GITHUB_WORKSPACE/openwrt/ddd/config/telegram.sh
+          curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=$g_l"
       - name: 删除运行记录
         uses: Mattraks/delete-workflow-runs@v2
         with:
