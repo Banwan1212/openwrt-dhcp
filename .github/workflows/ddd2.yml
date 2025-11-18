@@ -157,11 +157,22 @@ jobs:
           name: openwrt-source
           path: ./openwrt
 
-      - name: 检查并准备目录
+      - name: 修复文件权限
         run: |
           cd openwrt
-          echo "=== 下载后目录结构 ==="
-          ls -la
+          echo "修复脚本文件权限..."
+          find scripts/ -name "*.sh" -type f -exec chmod +x {} \;
+          find scripts/ -name "*.pl" -type f -exec chmod +x {} \;
+          find scripts/ -type f -executable -exec chmod +x {} \; 2>/dev/null || true
+          
+          echo "修复工具文件权限..."
+          find staging_dir/ -type f -name "*" -exec chmod +x {} \; 2>/dev/null || true
+          find tools/ -type f -name "*" -exec chmod +x {} \; 2>/dev/null || true
+          
+          echo "修复自定义配置权限..."
+          chmod +x ddd/config/*.sh 2>/dev/null || true
+          
+          echo "权限修复完成"
           
       - name: 开始编译固件
         run: |
