@@ -126,12 +126,17 @@ jobs:
           make download -j16
           find dl -size -1024c -exec ls -l {} \;
           find dl -size -1024c -exec rm -f {} \;
+          
+      - name: 打包编译环境（保留权限）
+        run: |
+          cd /workdir
+          tar -czf openwrt-source.tar.gz --mode=preserve openwrt/
 
       - name: 上传编译环境
         uses: actions/upload-artifact@v4
         with:
           name: openwrt-source
-          path: /workdir/openwrt/
+          path: /workdir/openwrt-source.tar.gz
           retention-days: 1
 
   compile:
@@ -155,24 +160,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: openwrt-source
-          path: ./openwrt
 
-      - name: 修复文件权限
+      - name: 解压并保留权限
         run: |
-          cd openwrt
-          echo "修复脚本文件权限..."
-          find scripts/ -name "*.sh" -type f -exec chmod +x {} \;
-          find scripts/ -name "*.pl" -type f -exec chmod +x {} \;
-          find scripts/ -type f -executable -exec chmod +x {} \; 2>/dev/null || true
-          
-          echo "修复工具文件权限..."
-          find staging_dir/ -type f -name "*" -exec chmod +x {} \; 2>/dev/null || true
-          find tools/ -type f -name "*" -exec chmod +x {} \; 2>/dev/null || true
-          
-          echo "修复自定义配置权限..."
-          chmod +x ddd/config/*.sh 2>/dev/null || true
-          
-          echo "权限修复完成"
+          tar -xzf openwrt-source.tar.gz
+          rm openwrt-source.tar.gz
+          echo "环境解压完成，权限已保留"
+
           
       - name: 开始编译固件
         run: |
