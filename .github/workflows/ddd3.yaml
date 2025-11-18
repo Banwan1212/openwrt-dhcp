@@ -143,13 +143,6 @@ jobs:
         with:
           name: openwrt-source
 
-      - name: 检查目录结构
-        run: |
-          echo "=== 下载后目录结构 ==="
-          ls -la
-          echo "=== openwrt-source 目录内容 ==="
-          ls -la openwrt-source/
-
       - name: 重命名目录
         run: |
           cd ..
@@ -187,13 +180,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: openwrt-compiled
-
-      - name: 检查目录结构
-        run: |
-          echo "=== 下载后目录结构 ==="
-          ls -la
-          echo "=== openwrt-compiled 目录内容 ==="
-          ls -la openwrt-compiled/
 
       - name: 重命名目录
         run: |
