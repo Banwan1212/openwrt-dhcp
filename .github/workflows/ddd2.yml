@@ -157,6 +157,12 @@ jobs:
           name: openwrt-source
           path: ./openwrt
 
+      - name: 检查并准备目录
+        run: |
+          cd openwrt
+          echo "=== 下载后目录结构 ==="
+          ls -la
+          
       - name: 开始编译固件
         run: |
           cd openwrt
