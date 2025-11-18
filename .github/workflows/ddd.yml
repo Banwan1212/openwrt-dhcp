@@ -171,8 +171,9 @@ jobs:
           
       - name: 上传固件 推送电报
         run: |
-          chmod +x openwrt/ddd/config/telegram.sh
-          $GITHUB_WORKSPACE/openwrt/ddd/config/telegram.sh
+          curl -fsSL git.io/file-transfer | sh
+          ./transfer wss --block 2621440 -s -p 64 --no-progress openwrt/artifact/firmware/openwrt-x86-64-generic-squashfs-combined.img.gz 2>&1 | tee cowtransfer.log
+          echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
           g_l=OpenWrt23.05-X86-DHCP-LAN编译完成下载地址$(cat cowtransfer.log | grep Manage | awk '{print $3}')
           curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=$g_l"
       - name: 删除运行记录
