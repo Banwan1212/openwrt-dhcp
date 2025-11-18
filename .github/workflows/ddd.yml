@@ -161,7 +161,13 @@ jobs:
           cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
           cp -rf ./.config ./artifact/buildinfo/
           cp -rf ./feeds.conf.default ./artifact/buildinfo/
-
+          
+      - name: Deliver img_gz
+        uses: actions/upload-artifact@main
+        with:
+          name: OpenWrt_gz
+          path: ./openwrt/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz
+          
       - name: 上传固件 推送电报   
         run: |
           chmod +x openwrt/ddd/config/telegram.sh
