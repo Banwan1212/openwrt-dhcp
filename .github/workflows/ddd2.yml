@@ -129,14 +129,14 @@ jobs:
           
       - name: 打包编译环境（保留权限）
         run: |
-          cd /workdir
+          
           tar -czf openwrt-source.tar.gz --mode=preserve openwrt/
 
       - name: 上传编译环境
         uses: actions/upload-artifact@v4
         with:
           name: openwrt-source
-          path: /workdir/openwrt-source.tar.gz
+          path: openwrt-source.tar.gz
           retention-days: 1
 
   compile:
