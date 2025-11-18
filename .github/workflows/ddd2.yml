@@ -162,7 +162,7 @@ jobs:
 
       - name: 解压并保留权限
         run: |
-          tar -xzf openwrt-source.tar.gz
+          tar -xvpzf openwrt-source.tar.gz
           rm openwrt-source.tar.gz
           echo "环境解压完成，权限已保留"
 
