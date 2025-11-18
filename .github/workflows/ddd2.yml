@@ -25,12 +25,9 @@ jobs:
   environment-setup:
     name: Environment Setup
     runs-on: ubuntu-22.04
-    outputs:
-      disk-cache-key: ${{ steps.disk-cleanup.outputs.cache-key }}
     steps:
       - name: 释放Ubuntu磁盘空间
         uses: jlumbroso/free-disk-space@main
-        id: disk-cleanup
         with:
           tool-cache: true
           android: true
@@ -65,40 +62,57 @@ jobs:
           sudo -E apt-get -qq autoremove --purge
           sudo -E apt-get -qq clean
           sudo timedatectl set-timezone "$TZ"
+          
+      - name: 创建工作目录
+        run: |
           sudo mkdir -p /workdir
-          sudo chown $USER:$GROUPS /workdir
+          sudo chown -R $USER:$USER /workdir
+          sudo chmod -R 755 /workdir
+          echo "工作目录已创建:"
+          ls -la /workdir
 
   # Job 2: 源码准备和自定义配置
   source-prepare:
     name: Source Preparation
     runs-on: ubuntu-22.04
     needs: environment-setup
-    outputs:
-      source-ready: ${{ steps.set-output.outputs.ready }}
     steps:
+      - name: 检查工作目录
+        run: |
+          echo "检查工作目录状态:"
+          ls -la /workdir
+          df -hT /workdir
+          
       - name: 下载源代码
         working-directory: /workdir
         run: |
-          df -hT $PWD
+          echo "当前工作目录: $PWD"
+          echo "开始下载 OpenWrt 源代码..."
           git clone $REPO_URL -b $REPO_BRANCH openwrt
+          echo "源代码下载完成"
+          
+      - name: 创建符号链接
+        run: |
           ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+          echo "符号链接创建完成"
+          echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+          ls -la $GITHUB_WORKSPACE
 
       - name: 自定义插件库DDD
-        uses: actions/checkout@v2
+        working-directory: /workdir/openwrt
+        uses: actions/checkout@v4
         with:
           repository: Banwan1212/packages
           token: ${{ secrets.GH_TOKEN }}
-          path: openwrt/ddd
+          path: ddd
       
       - name: 自定义配置1
+        working-directory: /workdir/openwrt
         run: |
-          cd openwrt
+          echo "执行自定义配置1..."
           chmod +x ddd/config/1.sh
           ddd/config/1.sh
-          
-      - name: 设置输出
-        id: set-output
-        run: echo "ready=true" >> $GITHUB_OUTPUT
+          echo "自定义配置1完成"
 
   # Job 3: 依赖管理和 feeds 更新
   dependency-management:
@@ -106,24 +120,42 @@ jobs:
     runs-on: ubuntu-22.04
     needs: source-prepare
     steps:
-      - name: 更新源
+      - name: 检查目录状态
+        working-directory: /workdir/openwrt
         run: |
-          cd openwrt
-          ./scripts/feeds update -a         
+          echo "当前目录: $PWD"
+          ls -la
+          echo "ddd 目录内容:"
+          ls -la ddd/
+          
+      - name: 更新源
+        working-directory: /workdir/openwrt
+        run: |
+          echo "更新 feeds..."
+          ./scripts/feeds update -a
+          echo "安装基础包..."
           ./scripts/feeds install libpam libnetsnmp liblzma
           
-      - name: 安装源并更新go插件版本
+      - name: 更新go插件版本
+        working-directory: /workdir/openwrt
         run: |
-          cd openwrt          
+          echo "更新 Go 版本..."
           rm -rf feeds/packages/lang/golang
           git clone https://github.com/kenzok8/golang -b 1.25 feeds/packages/lang/golang
+          
+      - name: 安装所有feeds
+        working-directory: /workdir/openwrt
+        run: |
+          echo "安装所有 feeds..."
           ./scripts/feeds install -a
           
       - name: 自定义配置2
+        working-directory: /workdir/openwrt
         run: |
-          cd openwrt
+          echo "执行自定义配置2..."
           chmod +x ddd/config/2.sh
           ddd/config/2.sh
+          echo "自定义配置2完成"
 
   # Job 4: 配置生成和下载资源
   configuration-download:
@@ -132,48 +164,53 @@ jobs:
     needs: dependency-management
     outputs:
       config-hash: ${{ steps.config-hash.outputs.hash }}
-      dl-cache-key: ${{ steps.dl-cache.outputs.cache-primary-key }}
     steps:
       - name: SSH 连接 (可选)
+        if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh != 'false') || contains(github.event.action, 'ssh')
         uses: P3TERX/ssh2actions@v1.0.0
-        if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
         env:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           
       - name: 自定义设置.config
+        working-directory: /workdir/openwrt
         run: |
-          cd openwrt
+          echo "生成配置文件..."
           rm -f ./.config*
-          rm -rf ./tmp && rm -rf .config
+          rm -rf ./tmp
           touch ./.config
           chmod +x ddd/config/3.sh
           ddd/config/3.sh
           sed -i 's/^[ \t]*//g' ./.config
           make defconfig
+          echo "配置文件生成完成"
 
       - name: 缓存下载资源
         uses: actions/cache@v4
         id: dl-cache
         with:
-          path: openwrt/dl
-          key: ${{ github.sha }}-dl-${{ hashFiles('openwrt/.config', 'openwrt/feeds.conf.default') }}
+          path: /workdir/openwrt/dl
+          key: ${{ github.sha }}-dl-${{ hashFiles('/workdir/openwrt/.config', '/workdir/openwrt/feeds.conf.default') }}
           restore-keys: |
             ${{ github.sha }}-dl-
             dl-
             
       - name: 下载固件包
+        working-directory: /workdir/openwrt
         run: |
-          cd openwrt
-          make download -j16
+          echo "开始下载资源包..."
+          make download -j8
+          echo "清理无效的小文件..."
           find dl -size -1024c -exec ls -l {} \;
           find dl -size -1024c -exec rm -f {} \;
+          echo "下载完成"
 
       - name: 生成配置哈希
         id: config-hash
+        working-directory: /workdir/openwrt
         run: |
-          cd openwrt
           echo "hash=$(sha256sum .config | cut -d' ' -f1)" >> $GITHUB_OUTPUT
+          echo "配置哈希: $(sha256sum .config | cut -d' ' -f1)"
 
   # Job 5: 编译固件
   build-firmware:
@@ -188,19 +225,21 @@ jobs:
       - name: 恢复下载缓存
         uses: actions/cache@v4
         with:
-          path: openwrt/dl
+          path: /workdir/openwrt/dl
           key: ${{ needs.configuration-download.outputs.dl-cache-key }}
           
       - name: 开始编译固件
         id: build
+        working-directory: /workdir/openwrt
         run: |
-          cd openwrt
+          echo "开始编译固件..."
           make -j$(nproc) || make -j1 || make -j1 V=s
           echo "status=success" >> $GITHUB_OUTPUT
+          echo "编译完成"
           
       - name: 空间使用情况
+        working-directory: /workdir/openwrt
         run: |
-          cd openwrt
           echo "======================="
           echo "Space usage:"
           echo "======================="
@@ -212,11 +251,16 @@ jobs:
 
       - name: 获取设备信息
         id: device-info
+        working-directory: /workdir/openwrt
         run: |
-          cd openwrt
           grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
-          [ -s DEVICE_NAME ] && echo "device-name=_$(cat DEVICE_NAME)" >> $GITHUB_OUTPUT || echo "device-name=generic" >> $GITHUB_OUTPUT
+          if [ -s DEVICE_NAME ]; then
+            echo "device-name=_$(cat DEVICE_NAME)" >> $GITHUB_OUTPUT
+          else
+            echo "device-name=generic" >> $GITHUB_OUTPUT
+          fi
           echo "file-date=_$(date +"%Y%m%d%H%M")" >> $GITHUB_OUTPUT
+          echo "设备名称: $(cat DEVICE_NAME 2>/dev/null || echo 'generic')"
 
   # Job 6: 整理和上传固件
   package-upload:
@@ -225,8 +269,9 @@ jobs:
     needs: build-firmware
     steps:
       - name: 整理固件
+        working-directory: /workdir/openwrt
         run: |
-          cd openwrt
+          echo "整理固件文件..."
           mkdir -p ./artifact/firmware
           mkdir -p ./artifact/package
           mkdir -p ./artifact/buildinfo
@@ -236,28 +281,31 @@ jobs:
           cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
           cp -rf ./.config ./artifact/buildinfo/
           cp -rf ./feeds.conf.default ./artifact/buildinfo/
+          echo "文件整理完成"
           
       - name: 上传固件镜像
         uses: actions/upload-artifact@v4
         with:
           name: OpenWrt-Firmware-${{ needs.build-firmware.outputs.device-name }}${{ needs.build-firmware.outputs.file-date }}
           path: |
-            openwrt/artifact/firmware/
-            openwrt/artifact/package/
-            openwrt/artifact/buildinfo/
+            /workdir/openwrt/artifact/firmware/
+            /workdir/openwrt/artifact/package/
+            /workdir/openwrt/artifact/buildinfo/
           retention-days: 30
 
-      - name: Deliver img_gz
+      - name: 上传镜像文件
         uses: actions/upload-artifact@v4
         with:
           name: OpenWrt_gz
-          path: ./openwrt/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz
+          path: /workdir/openwrt/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz
           
       - name: 上传固件并推送电报
+        working-directory: /workdir/openwrt
         run: |
-          chmod +x openwrt/ddd/config/telegram.sh
-          $GITHUB_WORKSPACE/openwrt/ddd/config/telegram.sh
-          g_l=OpenWrt23.05-X86-DHCP-LAN编译完成下载地址$(cat cowtransfer.log | grep Manage | awk '{print $3}')
+          echo "发送电报通知..."
+          chmod +x ddd/config/telegram.sh
+          ./ddd/config/telegram.sh
+          g_l="OpenWrt23.05-X86-DHCP-LAN编译完成下载地址$(cat cowtransfer.log | grep Manage | awk '{print $3}')"
           curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=$g_l"
 
   # Job 7: 清理工作 (始终运行)
@@ -267,7 +315,7 @@ jobs:
     needs: 
       - environment-setup
       - package-upload
-    if: always()  # 无论前面成功失败都运行
+    if: always()
     steps:
       - name: 删除运行记录
         uses: Mattraks/delete-workflow-runs@v2
