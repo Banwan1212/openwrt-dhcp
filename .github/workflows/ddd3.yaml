@@ -138,55 +138,25 @@ jobs:
     runs-on: ubuntu-22.04
     needs: build
     steps:
-      - name: 检查下载前的文件
-        run: |
-          echo "=== 下载前当前目录 ==="
-          ls -la
-          
       - name: 下载编译环境
         uses: actions/download-artifact@v4
         with:
           name: openwrt-source
 
-      - name: 检查下载后的文件
+      - name: 检查目录结构
         run: |
-          echo "=== 下载后当前目录 ==="
+          echo "=== 下载后目录结构 ==="
           ls -la
-          echo "=== 检查下载的artifact内容 ==="
-          find . -name "openwrt" -type d 2>/dev/null || echo "未找到openwrt目录"
-          find . -type d -maxdepth 2 2>/dev/null | head -10
+          echo "=== openwrt-source 目录内容 ==="
+          ls -la openwrt-source/
 
-      - name: 准备编译环境
+      - name: 重命名目录
         run: |
-          # 检查artifact的目录结构
-          if [ -d "openwrt-source" ]; then
-            echo "找到 openwrt-source 目录"
-            mv openwrt-source openwrt
-          elif [ -d "openwrt" ]; then
-            echo "openwrt 目录已存在"
-          else
-            echo "尝试查找其他目录..."
-            find . -type d -name "*openwrt*" | head -5
-            # 如果找到其他目录，复制到openwrt
-            for dir in $(find . -type d -name "*openwrt*" -maxdepth 1); do
-              if [ "$dir" != "./openwrt" ]; then
-                echo "复制 $dir 到 openwrt"
-                cp -r "$dir" openwrt
-                break
-              fi
-            done
-          fi
-          
-          echo "=== 最终目录结构 ==="
-          ls -la
-          [ -d "openwrt" ] && echo "openwrt目录存在" || echo "openwrt目录不存在"
+          cd ..
+          mv openwrt-source openwrt
 
       - name: 开始编译固件
         run: |
-          if [ ! -d "openwrt" ]; then
-            echo "错误：openwrt目录不存在，无法编译"
-            exit 1
-          fi
           cd openwrt
           make -j$(nproc) || make -j1 || make -j1 V=s
           echo "======================="
@@ -218,14 +188,17 @@ jobs:
         with:
           name: openwrt-compiled
 
-      - name: 检查并准备目录
+      - name: 检查目录结构
         run: |
           echo "=== 下载后目录结构 ==="
           ls -la
-          if [ -d "openwrt-compiled" ]; then
-            mv openwrt-compiled openwrt
-          fi
-          [ -d "openwrt" ] && echo "openwrt目录准备完成" || echo "错误：openwrt目录不存在"
+          echo "=== openwrt-compiled 目录内容 ==="
+          ls -la openwrt-compiled/
+
+      - name: 重命名目录
+        run: |
+          cd ..
+          mv openwrt-compiled openwrt
 
       - name: 整理固件
         run: |
