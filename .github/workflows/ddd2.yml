@@ -129,7 +129,8 @@ jobs:
           
       - name: 打包编译环境（保留权限）
         run: |
-          
+          cd openwrt
+          cd ..
           tar -czf openwrt-source.tar.gz --mode=preserve openwrt/
 
       - name: 上传编译环境
