@@ -130,7 +130,7 @@ jobs:
       - name: 打包编译环境（保留权限）
         run: |
           cd openwrt          
-          tar -cvpzf openwrt-source.tar.gz .
+          tar -cvpzf openwrt-source.tar.gz openwrt
       - name: 上传编译环境
         uses: actions/upload-artifact@v4
         with:
