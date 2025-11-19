@@ -101,13 +101,6 @@ jobs:
           chmod +x ddd/config/2.sh
           ddd/config/2.sh
           
-      - name: SSH 连接
-        uses: P3TERX/ssh2actions@v1.0.0
-        if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-        env:
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          
       - name: 自定义设置.config
         run: |
           cd openwrt
@@ -129,7 +122,7 @@ jobs:
           
       - name: 打包编译环境（保留权限）
         run: |
-          tar -cpzf openwrt-source.tar.gz ./openwrt/
+          tar -cvpzf openwrt-source.tar.gz openwrt/
       - name: 上传编译环境
         uses: actions/upload-artifact@v4
         with:
