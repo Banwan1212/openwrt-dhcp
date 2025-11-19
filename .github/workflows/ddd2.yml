@@ -120,8 +120,15 @@ jobs:
           find dl -size -1024c -exec ls -l {} \;
           find dl -size -1024c -exec rm -f {} \;
           
+      - name: 检查目录结构
+        run: |
+          echo "=== 下载后目录结构 ==="
+          ls -la
+
       - name: 打包编译环境（保留权限）
         run: |
+          echo "=== 下载后目录结构 ==="
+          ls -la
           tar -cvpzf openwrt-source.tar.gz openwrt/
       - name: 上传编译环境
         uses: actions/upload-artifact@v4
