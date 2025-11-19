@@ -131,7 +131,7 @@ jobs:
         run: |
           cd openwrt
           cb ..
-          tar -cvpzf openwrt-source.tar.gz openwrt
+          tar -cpzf openwrt-source.tar.gz ./openwrt/
       - name: 上传编译环境
         uses: actions/upload-artifact@v4
         with:
