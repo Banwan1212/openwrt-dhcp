@@ -129,7 +129,7 @@ jobs:
         run: |
           echo "=== 下载后目录结构 ==="
           ls -la
-          tar -cvpzf openwrt-source.tar.gz openwrt/
+          tar -cvpzf openwrt-source.tar.gz -C /workdir openwrt
       - name: 上传编译环境
         uses: actions/upload-artifact@v4
         with:
