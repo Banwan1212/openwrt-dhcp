@@ -1,8 +1,8 @@
 
 name: openwrt_dhcp
 on:
-  schedule:
-    - cron: '0 6 * * *' # 观察今天 UTC 时间 06:00 到 06:20 之间（即上海时间 14:00 到 14:20），工作流是否自动启动。
+  # schedule:
+   # - cron: '0 6 * * *' # 观察今天 UTC 时间 06:00 到 06:20 之间（即上海时间 14:00 到 14:20），工作流是否自动启动。
   workflow_dispatch:
     inputs:
       ssh:
