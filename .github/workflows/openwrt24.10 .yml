@@ -63,7 +63,7 @@ jobs:
           cd openwrt
           ./scripts/feeds update -a         
           ./scripts/feeds install libpam libnetsnmp liblzma
-          rm -rf tmp && ./scripts/feeds install -f -p helloworld shadowsocksr-libev
+          rm -rf tmp && ./scripts/feeds install -f -p passwall shadowsocksr-libev
       - name: 安装源 Install feeds  更新go插件版本
         run: |
           cd openwrt          
