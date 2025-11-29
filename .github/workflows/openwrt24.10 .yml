@@ -83,7 +83,12 @@ jobs:
         env:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          
+      - name: rust报错
+        run: |
+          cd openwrt
+          sed -i 's/--set=llvm.download-ci-llvm=true/--set=source.crates-io.replace-with=mirror \\\
+          --set=source.mirror.registry=sparse+https:\/\/mirrors.bfsu.edu.cn\/crates.io-index\/ \\\
+          --set=llvm.download-ci-llvm=false/' package/feeds/packages/rust/Makefile  
       - name: 自定义设置.config
         run: |
           cd openwrt
