@@ -89,8 +89,8 @@ jobs:
           rm -f ./.config*
           rm -rf ./tmp && rm -rf .config
           touch ./.config
-          chmod +x ddd/config/3.sh
-          ddd/config/3.sh
+          chmod +x ddd/config/op24-10.sh
+          ddd/config/op24-10.sh
           sed -i 's/^[ \t]*//g' ./.config
           make defconfig
             
