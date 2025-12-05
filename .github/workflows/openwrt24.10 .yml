@@ -63,9 +63,11 @@ jobs:
       - name: 安装源 Install feeds  更新go插件版本
         run: |
           cd openwrt          
-          # rm -rf feeds/packages/lang/golang
-          # git clone https://github.com/kenzok8/golang -b 1.25 feeds/packages/lang/golang
-          # rm -rf feeds/packages/net/xray-core          
+          rm -rf feeds/packages/lang/golang
+          git clone https://github.com/kenzok8/golang -b 1.25 feeds/packages/lang/golang
+          rm -rf feeds/luci/applications/luci-app-mosdns
+          rm -rf feeds/packages/net/{alist,adguardhome,mosdns,xray*,v2ray*,v2ray*,sing*,smartdns}
+          rm -rf feeds/packages/utils/v2dat       
           ./scripts/feeds install -a
           
       - name: 自定义配置2
