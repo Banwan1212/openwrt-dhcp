@@ -58,16 +58,10 @@ jobs:
         run: |
           cd openwrt
           ./scripts/feeds update -a         
-          # ./scripts/feeds install libpam libnetsnmp liblzma
           
-      - name: 安装源 Install feeds  更新go插件版本
+      - name: 安装源 Install feeds 
         run: |
           cd openwrt          
-          rm -rf feeds/packages/lang/golang
-          git clone https://github.com/kenzok8/golang -b 1.25 feeds/packages/lang/golang
-          # rm -rf feeds/luci/applications/luci-app-mosdns
-          rm -rf feeds/packages/net/{xray*,v2ray*,v2ray*,sing*}
-          # rm -rf feeds/packages/utils/v2dat       
           ./scripts/feeds install -a
           
       - name: 自定义配置2
