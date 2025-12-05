@@ -82,10 +82,7 @@ jobs:
         env:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      # - name: rust报错
-        # run: |
-          # cd openwrt
-          #  sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
+     
       - name: 自定义设置.config
         run: |
           cd openwrt
